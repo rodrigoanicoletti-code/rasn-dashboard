@@ -58,7 +58,7 @@ async function decifra(blob,senha){
   return new TextDecoder().decode(await crypto.subtle.decrypt({name:"AES-GCM",iv},key,ct));
 }
 
-const VERIF="Qhlcr+VQG0QIDkEffxlYuj8h4stYoPo1byqaY1YY23Ixi27AqZQcE2bcZ401Nw==";
+const VERIF="CYwjG7GV4Z+CYBhJKqL/qSUhA3uKOZ6p87+lz3r9/IcsIKrDsTiRX3VMAqKwSQ==";
 function mostraMenu(){document.getElementById("senha").classList.add("hide");document.getElementById("menu").classList.remove("hide");}
 async function tenta(senha){await decifra(VERIF,senha);try{sessionStorage.setItem("rasn_pw",senha);}catch(e){}mostraMenu();}
 (async()=>{const s=(function(){try{return sessionStorage.getItem("rasn_pw")}catch(e){return null}})();
