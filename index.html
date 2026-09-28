@@ -42,8 +42,7 @@
       <div class="tag">RASN Empreendimentos</div><h1>Projetos</h1>
       <p>Escolha um projeto. A senha fica guardada — não precisa digitar de novo.</p>
       <div class="proj">
-        <a class="pcard" href="piratuba.html"><div class="pn">Piratuba</div><div class="ps">Projeto 1 · ativo</div><div class="go">Abrir dashboard →</div></a>
-        <a class="pcard" href="jaguariuna.html"><div class="pn">Jaguariúna</div><div class="ps">Projeto 2 · a iniciar</div><div class="go">Abrir dashboard →</div></a>
+        <a class="pcard" data-i="0" href="piratuba.html"><div class="pn">Piratuba</div><div class="ps">Projeto 1</div><div class="go">Abrir dashboard →</div></a><a class="pcard" data-i="1" href="jaguariuna.html"><div class="pn">Jaguaruna</div><div class="ps">Projeto 2</div><div class="go">Abrir dashboard →</div></a>
       </div>
     </div>
   </div>
@@ -58,9 +57,10 @@ async function decifra(blob,senha){
   return new TextDecoder().decode(await crypto.subtle.decrypt({name:"AES-GCM",iv},key,ct));
 }
 
-const VERIF="oD0i0/ZC8da1Q4mSFh0yn5xGZlncmwsQJTzRGmkq2XyQ/h47ChVKdhgEYX6Qnw==";
+const VERIF="tiJOcO14mr4B6eAPGVthkHwIrWBYBd1bcdj8Z9e/35/YF/7/myQX/AI5QcIUgg2+IxLPaaCWi1nsQdGMu4/46dHWudZ7RdG7lC/69o6T7Q4jJJ/bfH7XzInFZQxexdQQ7Agjnwe/A6UMZfbKjUoYErl/Gorn+eAebmm1Iui4uRdnvh/4TiBmOhTsVkG/Z1/zZarruI39vXjv8yc=";
 function mostraMenu(){document.getElementById("senha").classList.add("hide");document.getElementById("menu").classList.remove("hide");}
-async function tenta(senha){await decifra(VERIF,senha);try{sessionStorage.setItem("rasn_pw",senha);}catch(e){}mostraMenu();}
+function detalhes(t){try{const j=JSON.parse(t);(j.detalhes||[]).forEach((s,i)=>{const el=document.querySelector('.pcard[data-i="'+i+'"] .ps');if(el&&s)el.textContent+=" · "+s;});}catch(e){}}
+async function tenta(senha){const t=await decifra(VERIF,senha);try{sessionStorage.setItem("rasn_pw",senha);}catch(e){}detalhes(t);mostraMenu();}
 (async()=>{const s=(function(){try{return sessionStorage.getItem("rasn_pw")}catch(e){return null}})();
   if(s){try{await tenta(s);return}catch(e){}}})();
 const f=document.getElementById("f"),pw=document.getElementById("pw"),err=document.getElementById("err"),b=document.getElementById("b");
