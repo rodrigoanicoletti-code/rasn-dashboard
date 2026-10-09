@@ -57,7 +57,7 @@ async function decifra(blob,senha){
   return new TextDecoder().decode(await crypto.subtle.decrypt({name:"AES-GCM",iv},key,ct));
 }
 
-const VERIF="WjNZLSXmgCJlrrc7BtFuwvxlhzXYzrnpj3OQYOB/CJXcpp7zs14ZV2wgrc2m92VUAmhB/df3vsSEDf4m4Zm5SYfTWSSNm4wF+IfSScFrK398qGrYdDu3GmaqgdmocSGFbOQXK1ozFoQLk6k4GiJn+B7H+L8i7l9TtFXGIfP+CIsRIy1bBzk2yz++C/YVF+zD1UGwNpDhUFHeGdM=";
+const VERIF="Kj++/g0EDAhYfEQeLQqfhKly7J+oGlEeI1Fpy0fn32aVG+w+QHF+LJtJLtCpV/xhvZTtzjS/2UOXF072F8ouEQgQLUJufpd0enaMRO3yySxgfU0VseMC9iUAq7PPIbnPfl1T32uNntYdMctCH8Nxs6KXwkDDkc/5dKaQ5J8w6lqt3CgoeEPh/eZB0pk5fY9yf7nrK+stqlurRis=";
 function mostraMenu(){document.getElementById("senha").classList.add("hide");document.getElementById("menu").classList.remove("hide");}
 function detalhes(t){try{const j=JSON.parse(t);(j.detalhes||[]).forEach((s,i)=>{const el=document.querySelector('.pcard[data-i="'+i+'"] .ps');if(el&&s)el.textContent+=" · "+s;});}catch(e){}}
 async function tenta(senha){const t=await decifra(VERIF,senha);try{sessionStorage.setItem("rasn_pw",senha);}catch(e){}detalhes(t);mostraMenu();}
